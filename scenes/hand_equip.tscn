@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b420ngal8rkrt"]
+
+[ext_resource type="Script" path="res://scenes/hand_equip.gd" id="1_btpi5"]
+[ext_resource type="Texture2D" uid="uid://de7jtkkexq8nf" path="res://assets/sprites/rock.png" id="1_op6rx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tvxvs"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5cj5w"]
+radius = 4.0
+
+[node name="HandEquip" type="Node2D"]
+script = ExtResource("1_btpi5")
+
+[node name="ItemPickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupArea"]
+shape = SubResource("CircleShape2D_tvxvs")
+
+[node name="EquipeSprite" type="Sprite2D" parent="."]
+scale = Vector2(1.84375, 1.84375)
+texture = ExtResource("1_op6rx")
+
+[node name="collision" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collision"]
+shape = SubResource("CircleShape2D_5cj5w")
+
+[connection signal="area_entered" from="ItemPickupArea" to="." method="_on_area_2d_area_entered"]
