@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://dto8qfspqle7p"]
+[gd_scene load_steps=16 format=3 uid="uid://dto8qfspqle7p"]
 
 [ext_resource type="Texture2D" uid="uid://b26t83822dee" path="res://assets/sprites/character_front_walk.png" id="1_447qw"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_uudb5"]
 [ext_resource type="Texture2D" uid="uid://debwysqd1j7uw" path="res://assets/sprites/front_throw.png" id="3_agp0m"]
-[ext_resource type="Texture2D" uid="uid://cr8wghvqjs723" path="res://assets/sprites/arrow_point.png" id="3_fpv1j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nllga"]
 size = Vector2(17, 25)
@@ -644,18 +643,12 @@ position = Vector2(-0.5, 1.5)
 shape = SubResource("RectangleShape2D_nllga")
 
 [node name="PlayerBody" type="Sprite2D" parent="."]
-position = Vector2(4.76837e-07, 2.38419e-07)
-scale = Vector2(1.75347, 1.79118)
+position = Vector2(1.90735e-06, 9.53674e-07)
+scale = Vector2(2.69444, 2.75239)
 texture = ExtResource("1_447qw")
 hframes = 9
 vframes = 2
 frame = 1
-
-[node name="ThrowDirectionArrow" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(2.84217e-14, 1.42109e-14)
-scale = Vector2(1, 1)
-texture = ExtResource("3_fpv1j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
