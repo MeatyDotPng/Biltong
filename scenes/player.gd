@@ -57,7 +57,7 @@ func _input(event):
 	if event.is_action_pressed("pickup") and held_item == null:
 		pick_up_closest_item()
 	
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and held_item != null:
 		if event.pressed:
 			# Start drag
 			drag_start_pos = event.position
@@ -72,7 +72,7 @@ func _input(event):
 				throw_direction_arrow.visible = false
 				calculate_and_throw(event.position)
 				
-	if event is InputEventMouseMotion and is_dragging:
+	if event is InputEventMouseMotion and is_dragging and held_item != null:
 		update_drag_visual(event.position)
 
 func pick_up_closest_item():
