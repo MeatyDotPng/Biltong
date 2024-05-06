@@ -56,22 +56,24 @@ func _input(event):
 	# Pick up item if close enough and pickup action is triggered
 	if event.is_action_pressed("pickup") and held_item == null:
 		pick_up_closest_item()
-	
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and held_item != null:
-		if event.pressed:
-			# Start drag
-			drag_start_pos = event.position
-			is_dragging = true
-			
-			throw_direction_arrow.visible = true
-			throw_direction_arrow.position = Vector2(0, 0)
-		else:
-			# End drag and calculate throw
-			if is_dragging:
-				is_dragging = false
-				throw_direction_arrow.visible = false
-				calculate_and_throw(event.position)
+	if held_item != null:
+		if event is InputEventMouseButton:
+			if event.pressed:
+				 # Start drag from the player's current global position
+				drag_start_pos = global_position
+				is_dragging = true
 				
+				throw_direction_arrow.visible = true
+				 # Position the arrow at the player's position
+				throw_direction_arrow.global_position = global_position
+			else:
+				# End drag and calculate throw
+				if is_dragging:
+					is_dragging = false
+					throw_direction_arrow.visible = false
+					 # Use global mouse position to calculate
+					calculate_and_throw(get_global_mouse_position())
+
 	if event is InputEventMouseMotion and is_dragging and held_item != null:
 		update_drag_visual(event.position)
 
@@ -94,8 +96,9 @@ func throw_item(direction, force):
 		held_item.throw(direction, force)
 		held_item = null
 
-func calculate_and_throw(end_pos):
-	var drag_vector = end_pos - drag_start_pos
+func calculate_and_throw(mouse_global_pos):
+	# drag_start_pos is now player's position
+	var drag_vector = mouse_global_pos - drag_start_pos
 	var drag_length = drag_vector.length()
 	
 	if drag_length > max_drag_distance:
