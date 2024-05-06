@@ -18,7 +18,7 @@ var is_dragging = false
 var drag_start_pos = Vector2()
 var max_drag_distance = 300.0
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("walk_right") - Input.get_action_strength("walk_left")
 	input_vector.y = Input.get_action_strength("walk_down") - Input.get_action_strength("walk_up")
@@ -64,7 +64,7 @@ func _input(event):
 			is_dragging = true
 			
 			throw_direction_arrow.visible = true
-			throw_direction_arrow.position = Vector2(30, 15)
+			throw_direction_arrow.position = Vector2(0, 0)
 		else:
 			# End drag and calculate throw
 			if is_dragging:
@@ -87,9 +87,8 @@ func pick_up_closest_item():
 
 func throw_item(direction, force):
 	if held_item:
-		animation_player.play("front_throw_left")  # Ensure you have this animation or adjust accordingly
-		await get_tree().create_timer(2.0)  # Wait for half a second; adjust based on animation length
-		# Assuming the animation is around 0.5 seconds long
+		animation_player.play("front_throw_left")
+		get_tree().create_timer(2.0)
 		item_holder_one.remove_child(held_item)
 		held_item.global_position = item_holder_one.global_position
 		held_item.throw(direction, force)
@@ -114,12 +113,6 @@ func update_drag_visual(current_pos):
 	
 	# Update arrow rotation to point in the direction of the drag
 	throw_direction_arrow.rotation = drag_vector.angle()
-
-	# Scale the arrow based on the drag length. This adjusts only the length (x-axis).
-	# Ensure the arrow image's 'Expand' property is enabled if it gets distorted.
-	var scale_length = map(drag_length, 0, max_drag_distance, 0.5, 1.0)
-	throw_direction_arrow.scale.x = scale_length
-	throw_direction_arrow.scale.y = 1  # Maintain constant height
 
 func map(value, from_min, from_max, to_min, to_max):
 	return (value - from_min) / (from_max - from_min) * (to_max - to_min) + to_min
