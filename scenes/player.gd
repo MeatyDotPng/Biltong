@@ -64,7 +64,7 @@ func _input(event):
 			is_dragging = true
 			
 			throw_direction_arrow.visible = true
-			throw_direction_arrow.position = Vector2(30, 15)
+			throw_direction_arrow.position = Vector2(0, 0)
 		else:
 			# End drag and calculate throw
 			if is_dragging:
@@ -114,12 +114,6 @@ func update_drag_visual(current_pos):
 	
 	# Update arrow rotation to point in the direction of the drag
 	throw_direction_arrow.rotation = drag_vector.angle()
-
-	# Scale the arrow based on the drag length. This adjusts only the length (x-axis).
-	# Ensure the arrow image's 'Expand' property is enabled if it gets distorted.
-	var scale_length = map(drag_length, 0, max_drag_distance, 0.5, 1.0)
-	throw_direction_arrow.scale.x = scale_length
-	throw_direction_arrow.scale.y = 1  # Maintain constant height
 
 func map(value, from_min, from_max, to_min, to_max):
 	return (value - from_min) / (from_max - from_min) * (to_max - to_min) + to_min
