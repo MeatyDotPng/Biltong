@@ -61,7 +61,7 @@ func throw(direction, force):
 		add_child(timer)
 		timer.one_shot = true
 		timer.autostart = false
-		timer.wait_time = 0.1
+		timer.wait_time = 0.2
 		timer.timeout.connect(_timer_Timeout)
 		timer.start()
 		

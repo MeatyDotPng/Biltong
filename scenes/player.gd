@@ -22,7 +22,7 @@ var direction : Vector2 = Vector2.ZERO
 func _ready():
 	animation_tree.active = true
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	direction = Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down").normalized()
 	update_animation_parameters()
 
@@ -36,22 +36,23 @@ func _input(event):
 	# Pick up item if close enough and pickup action is triggered
 	if event.is_action_pressed("pickup") and held_item == null:
 		pick_up_closest_item()
-	if held_item != null:
+	
+	if held_item:
 		if event is InputEventMouseButton:
 			if event.pressed:
-				 # Start drag from the player's current global position
+				# Start drag from the player's current global position
 				drag_start_pos = global_position
 				is_dragging = true
 				
 				throw_direction_arrow.visible = true
-				 # Position the arrow at the player's position
+				# Position the arrow at the player's position
 				throw_direction_arrow.global_position = global_position
 			else:
 				# End drag and calculate throw
 				if is_dragging:
 					is_dragging = false
 					throw_direction_arrow.visible = false
-					 # Use global mouse position to calculate
+					# Use global mouse position to calculate
 					calculate_and_throw(get_global_mouse_position())
 
 	if event is InputEventMouseMotion and is_dragging and held_item != null:
@@ -66,10 +67,19 @@ func pick_up_closest_item():
 			item.is_held = true
 			break
 
-func throw_item(direction, force):
+func throw_item(direction_throw, force):
+	var timer : Timer = Timer.new()
+	add_child(timer)
+	timer.one_shot = true
+	timer.autostart = false
+	timer.wait_time = 0.2
+	timer.timeout.connect(_timer_Timeout)
+	timer.start()
+	
 	if held_item:
-		held_item.global_position = item_holder_one.global_position
-		held_item.throw(direction, force)
+		held_item.throw(direction_throw, force)
+
+func _timer_Timeout():
 		held_item = null
 
 func calculate_and_throw(mouse_global_pos):
@@ -97,24 +107,26 @@ func map(value, from_min, from_max, to_min, to_max):
 	return (value - from_min) / (from_max - from_min) * (to_max - to_min) + to_min
 
 func update_animation_parameters():
-	if(velocity == Vector2.ZERO):
+	if velocity == Vector2.ZERO:
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/is_moving"] = false
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/is_moving"] = true
-		
-	if(Input.is_action_just_released("throw_left")):
-		animation_tree["parameters/conditions/throw_left"] = true
-	else:
-		animation_tree["parameters/conditions/throw_left"] = false
 	
-	if(Input.is_action_just_released("throw_right")):
-		animation_tree["parameters/conditions/throw_right"] = true
-	else:
-		animation_tree["parameters/conditions/throw_right"] = false
+	if held_item:
+		if Input.is_action_just_released("throw_left"):
+			animation_tree["parameters/conditions/throw_left"] = true
+		else:
+			animation_tree["parameters/conditions/throw_left"] = false
 	
-	if(direction != Vector2.ZERO):
+		if Input.is_action_just_released("throw_right"):
+			animation_tree["parameters/conditions/throw_right"] = true
+		else:
+			animation_tree["parameters/conditions/throw_right"] = false
+	
+	# To hold the correct direction
+	if direction != Vector2.ZERO:
 		animation_tree["parameters/Idle/blend_position"] = direction
 		animation_tree["parameters/Run/blend_position"] = direction
 		animation_tree["parameters/Left_Arm_Throw/blend_position"] = direction
