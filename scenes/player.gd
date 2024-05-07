@@ -10,46 +10,27 @@ extends CharacterBody2D
 @onready var item_holder_two = $ItemHolderTwo
 @onready var interaction_area = $InteractionArea
 @onready var throw_direction_arrow = $ThrowDirectionArrow
+@onready var animation_tree : AnimationTree = $AnimationTree
 
 var held_item: BaseThrowable = null
 
 var is_dragging = false
 var drag_start_pos = Vector2()
 var max_drag_distance = 300.0
+var direction : Vector2 = Vector2.ZERO
 
-func _physics_process(_delta):
-	var input_vector = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("walk_right") - Input.get_action_strength("walk_left")
-	input_vector.y = Input.get_action_strength("walk_down") - Input.get_action_strength("walk_up")
+func _ready():
+	animation_tree.active = true
 
-	handle_input_vector(input_vector)
+func _physics_process(delta):
+	direction = Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down").normalized()
+	update_animation_parameters()
 
-	self.velocity = speed * input_vector.normalized()
-	self.move_and_slide()
-	
+	velocity = speed * direction
+	move_and_slide()
+
 	if held_item:
 		held_item.global_position = item_holder_one.global_position
-
-func handle_input_vector(input_vector):
-	if input_vector != Vector2.ZERO:
-		input_vector = input_vector.normalized()
-		player_body.flip_h = input_vector.x < 0
-		
-		if abs(input_vector.x) > 0:
-			animation_player.play("run_side")
-		elif input_vector.y > 0:
-			animation_player.play("run_front")
-		elif input_vector.y < 0:
-			animation_player.play("run_back")
-			
-		last_input_y = input_vector.y
-	else:
-		if last_input_y > 0:
-			animation_player.play("idle_front")
-		elif last_input_y < 0:
-			animation_player.play("idle_back")
-		else:
-			animation_player.play("idle_side")
 
 func _input(event):
 	# Pick up item if close enough and pickup action is triggered
@@ -116,14 +97,26 @@ func update_drag_visual(current_pos):
 func map(value, from_min, from_max, to_min, to_max):
 	return (value - from_min) / (from_max - from_min) * (to_max - to_min) + to_min
 
-func _on_animation_player_animation_finished(anim_name):
-	print("Animation finished: ", anim_name)
-	if anim_name == "front_throw_left" and held_item:
-		print("Throwing item.")
-		item_holder_one.remove_child(held_item)
-		held_item.global_position = item_holder_one.global_position
-		var mouse_position = get_global_mouse_position()
-		var throw_direction = (mouse_position - global_position).normalized()
-		held_item.throw(throw_direction, held_item.throw_force)
-		held_item = null
-
+func update_animation_parameters():
+	if(velocity == Vector2.ZERO):
+		animation_tree["parameters/conditions/idle"] = true
+		animation_tree["parameters/conditions/is_moving"] = false
+	else:
+		animation_tree["parameters/conditions/idle"] = false
+		animation_tree["parameters/conditions/is_moving"] = true
+		
+	if(Input.is_action_just_pressed("throw_left")):
+		animation_tree["parameters/conditions/throw_left"] = true
+	else:
+		animation_tree["parameters/conditions/throw_left"] = false
+	
+	if(Input.is_action_just_pressed("throw_right")):
+		animation_tree["parameters/conditions/throw_right"] = true
+	else:
+		animation_tree["parameters/conditions/throw_right"] = false
+	
+	if(direction != Vector2.ZERO):
+		animation_tree["parameters/Idle/blend_position"] = direction
+		animation_tree["parameters/Run/blend_position"] = direction
+		animation_tree["parameters/Left_Arm_Throw/blend_position"] = direction
+		animation_tree["parameters/Right_Arm_Throw/blend_position"] = direction
