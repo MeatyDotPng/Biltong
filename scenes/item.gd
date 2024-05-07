@@ -1,7 +1,7 @@
 extends BaseThrowable
 
 func _ready():
-	throw_force = 130
+	pass
 
 func _on_area_entered(area):
 	print(area, " IS IN MY AREA")
