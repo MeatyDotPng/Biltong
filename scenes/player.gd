@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 @export var speed = 75
-@export var gravity = 30
 @export var last_input_y = 0
 @export var throw_force = 400
 
