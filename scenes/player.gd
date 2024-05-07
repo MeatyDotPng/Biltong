@@ -82,15 +82,12 @@ func pick_up_closest_item():
 		if item is BaseThrowable and !item.is_held:
 			held_item = item
 			item.position = Vector2()
-			item_holder_one.add_child(item)
 			item.is_held = true
 			break
 
 func throw_item(direction, force):
 	if held_item:
 		animation_player.play("front_throw_left")
-		get_tree().create_timer(2.0)
-		item_holder_one.remove_child(held_item)
 		held_item.global_position = item_holder_one.global_position
 		held_item.throw(direction, force)
 		held_item = null
