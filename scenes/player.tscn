@@ -1047,8 +1047,6 @@ parameters/conditions/is_moving = false
 parameters/conditions/throw_left = false
 parameters/conditions/throw_right = false
 parameters/Idle/blend_position = Vector2(0, 0.760959)
-parameters/Left_Arm_Throw/blend_position = Vector2(0.00800002, 0.836301)
+parameters/Left_Arm_Throw/blend_position = Vector2(0.00479996, 0.56696)
 parameters/Right_Arm_Throw/blend_position = Vector2(0, 0)
 parameters/Run/blend_position = Vector2(0.00160003, 0.655479)
-
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
