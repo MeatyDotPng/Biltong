@@ -68,7 +68,6 @@ func pick_up_closest_item():
 
 func throw_item(direction, force):
 	if held_item:
-		animation_player.play("front_throw_left")
 		held_item.global_position = item_holder_one.global_position
 		held_item.throw(direction, force)
 		held_item = null
@@ -105,12 +104,12 @@ func update_animation_parameters():
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/is_moving"] = true
 		
-	if(Input.is_action_just_pressed("throw_left")):
+	if(Input.is_action_just_released("throw_left")):
 		animation_tree["parameters/conditions/throw_left"] = true
 	else:
 		animation_tree["parameters/conditions/throw_left"] = false
 	
-	if(Input.is_action_just_pressed("throw_right")):
+	if(Input.is_action_just_released("throw_right")):
 		animation_tree["parameters/conditions/throw_right"] = true
 	else:
 		animation_tree["parameters/conditions/throw_right"] = false

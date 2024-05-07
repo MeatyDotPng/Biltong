@@ -855,16 +855,16 @@ max_space = Vector2(1, 1.1)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sasqg"]
-animation = &"left_throw_left"
+animation = &"idel_left_throw_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g52y5"]
-animation = &"right_throw_left"
+animation = &"idle_right_throw_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_03q4q"]
-animation = &"back_throw_left"
+animation = &"idle_front_throw_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wqmyl"]
-animation = &"front_throw_left"
+animation = &"idle_back_throw_left"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_wyhvv"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_sasqg")
@@ -880,19 +880,19 @@ max_space = Vector2(1, 1.1)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fc0h4"]
-animation = &"left_throw_right"
+animation = &"idle_left_throw_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ue1kc"]
-animation = &"right_throw_right"
+animation = &"idle_right_throw_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ht41y"]
 animation = &"left_throw_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vm0m7"]
-animation = &"front_throw_right"
+animation = &"idle_back_throw_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1jg7h"]
-animation = &"back_throw_right"
+animation = &"idle_front_throw_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_xfg64"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_fc0h4")
@@ -1046,9 +1046,9 @@ parameters/conditions/idle = false
 parameters/conditions/is_moving = false
 parameters/conditions/throw_left = false
 parameters/conditions/throw_right = false
-parameters/Idle/blend_position = Vector2(0, -0.203425)
-parameters/Left_Arm_Throw/blend_position = Vector2(0, -1.11507)
+parameters/Idle/blend_position = Vector2(0, 0.760959)
+parameters/Left_Arm_Throw/blend_position = Vector2(0.00800002, 0.836301)
 parameters/Right_Arm_Throw/blend_position = Vector2(0, 0)
-parameters/Run/blend_position = Vector2(0.00960004, 0.896575)
+parameters/Run/blend_position = Vector2(0.00160003, 0.655479)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

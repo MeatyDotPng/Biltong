@@ -3,8 +3,8 @@ extends Area2D
 class_name BaseThrowable
 
 var initial_velocity = Vector2()
-var high_deceleration = 0.1
-var low_deceleration = 0.3
+var high_deceleration = 0.01
+var low_deceleration = 0.05
 var throw_sound = "res://assets/audio/sounds/throw.mp3"
 var hit_ground = "res://assets/audio/sounds/stone_fall.mp3"
 var is_held = false
@@ -57,12 +57,22 @@ func _on_dropped():
 
 func throw(direction, force):
 	if is_held:
-		is_held = false
+		var timer : Timer = Timer.new()
+		add_child(timer)
+		timer.one_shot = true
+		timer.autostart = false
+		timer.wait_time = 0.1
+		timer.timeout.connect(_timer_Timeout)
+		timer.start()
+		
 		initial_velocity = direction * force
-		play_sound(throw_sound)
-		emit_signal("dropped")
-		is_rolling = false
-		has_hit_ground = false  # Reset so sound can play on impact
+
+func _timer_Timeout():
+	is_held = false
+	is_rolling = false
+	has_hit_ground = false
+	play_sound(throw_sound)
+	emit_signal("dropped")
 
 func play_sound(sound_path):
 	var sound = AudioStreamPlayer.new()
