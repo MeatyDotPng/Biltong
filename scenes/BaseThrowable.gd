@@ -10,6 +10,7 @@ var hit_ground = "res://assets/audio/sounds/stone_fall.mp3"
 var is_held = false
 var is_rolling = false
 var has_hit_ground = false
+var already_playing = false
 
 signal picked_up
 signal dropped
@@ -56,7 +57,7 @@ func _on_dropped():
 	has_hit_ground = false  # Ensure the sound can play when appropriate
 
 func throw(direction, force):
-	if is_held:
+	if is_held and not already_playing:
 		var timer : Timer = Timer.new()
 		add_child(timer)
 		timer.one_shot = true
@@ -64,6 +65,7 @@ func throw(direction, force):
 		timer.wait_time = 0.2
 		timer.timeout.connect(_timer_Timeout)
 		timer.start()
+		already_playing = true
 		
 		initial_velocity = direction * force
 
@@ -79,3 +81,4 @@ func play_sound(sound_path):
 	sound.stream = load(sound_path)
 	add_child(sound)
 	sound.play()
+	already_playing = false
