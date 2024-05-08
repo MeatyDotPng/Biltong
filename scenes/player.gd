@@ -33,30 +33,38 @@ func _physics_process(_delta):
 		held_item.global_position = item_holder_one.global_position
 
 func _input(event):
-	# Pick up item if close enough and pickup action is triggered
+	# Handle item pickup
 	if event.is_action_pressed("pickup") and held_item == null:
 		pick_up_closest_item()
 	
-	if held_item:
-		if event is InputEventMouseButton:
-			if event.pressed:
-				# Start drag from the player's current global position
-				drag_start_pos = global_position
-				is_dragging = true
-				
-				throw_direction_arrow.visible = true
-				# Position the arrow at the player's position
-				throw_direction_arrow.global_position = global_position
-			else:
-				# End drag and calculate throw
-				if is_dragging:
-					is_dragging = false
-					throw_direction_arrow.visible = false
-					# Use global mouse position to calculate
-					calculate_and_throw(get_global_mouse_position())
+	# Handle drag start
+	if held_item and event is InputEventMouseButton:
+		if event.pressed:
+			# Start drag from the player's current global position
+			drag_start_pos = global_position
+			is_dragging = true
+			throw_direction_arrow.visible = true
+			throw_direction_arrow.global_position = global_position
+		else:
+			# End drag on mouse release if dragging was in progress
+			if is_dragging:
+				end_drag_and_throw(event)
 
-	if event is InputEventMouseMotion and is_dragging and held_item != null:
+	# Update visual feedback for dragging
+	if event is InputEventMouseMotion and is_dragging and held_item:
 		update_drag_visual(event.position)
+
+func end_drag_and_throw(event):
+	# End the dragging process and handle the throw
+	is_dragging = false
+	throw_direction_arrow.visible = false  # Ensure arrow is hidden when drag ends
+	calculate_and_throw(get_global_mouse_position())
+
+# Hide arrow if mouse button is released outside of normal event flow
+func _unhandled_input(event):
+	# Hide arrow if mouse button is released outside of normal event flow
+	if event is InputEventMouseButton and not event.pressed and is_dragging:
+		end_drag_and_throw(event)
 
 func pick_up_closest_item():
 	var items = interaction_area.get_overlapping_areas()
