@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://p6mlqowswgkl"]
+
+[ext_resource type="Texture2D" uid="uid://djsovc3qy6vwa" path="res://assets/sprites/objects/fire mango/Fire_Mango.png" id="1_e5orr"]
+[ext_resource type="Texture2D" uid="uid://de7jtkkexq8nf" path="res://assets/sprites/rock.png" id="2_qdn6p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hucx8"]
+atlas = ExtResource("1_e5orr")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvumd"]
+atlas = ExtResource("1_e5orr")
+region = Rect2(36, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2okxe"]
+atlas = ExtResource("1_e5orr")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qqc82"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hucx8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvumd")
+}],
+"loop": true,
+"name": &"picked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2okxe")
+}],
+"loop": true,
+"name": &"pickup",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vsmeh"]
+radius = 8.37304
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tdc8j"]
+radius = 6.0
+
+[node name="FireMangoBush" type="StaticBody2D"]
+z_index = 10
+y_sort_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 5
+scale = Vector2(2.02778, 2.02778)
+sprite_frames = SubResource("SpriteFrames_qqc82")
+animation = &"picked"
+offset = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, 2)
+rotation = 0.47822
+skew = 0.747001
+shape = SubResource("CircleShape2D_vsmeh")
+
+[node name="Item" type="Node2D" parent="."]
+
+[node name="FireMango" type="Area2D" parent="Item"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item/FireMango"]
+visible = false
+position = Vector2(-1, -3)
+shape = SubResource("CircleShape2D_tdc8j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Item/FireMango"]
+position = Vector2(-1, -3)
+scale = Vector2(2.125, 2.125)
+texture = ExtResource("2_qdn6p")
