@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://1mjwi8vj4hxi"]
+[gd_scene load_steps=7 format=3 uid="uid://1mjwi8vj4hxi"]
 
 [ext_resource type="PackedScene" uid="uid://bx45aod1nh562" path="res://scenes/item.tscn" id="2_cop11"]
 [ext_resource type="PackedScene" uid="uid://dto8qfspqle7p" path="res://scenes/player.tscn" id="2_ltaxa"]
 [ext_resource type="Texture2D" uid="uid://b0xksn37x1tf3" path="res://assets/sprites/tileset.png" id="3_r0m34"]
+[ext_resource type="PackedScene" uid="uid://p6mlqowswgkl" path="res://scenes/fire_mango_bush.tscn" id="4_1ggy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_45qub"]
 texture = ExtResource("3_r0m34")
@@ -179,6 +180,9 @@ layer_3/tile_data = PackedInt32Array(1638407, 655360, 0, 1114130, 655360, 0, 393
 
 [node name="Player" parent="TileMap" instance=ExtResource("2_ltaxa")]
 position = Vector2(264, 150)
+
+[node name="FireMangoBush" parent="TileMap" instance=ExtResource("4_1ggy4")]
+position = Vector2(433, 222)
 
 [node name="Item" parent="." instance=ExtResource("2_cop11")]
 position = Vector2(174, 159)
