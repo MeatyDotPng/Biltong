@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://jdy8tkpgljep"]
+
+[ext_resource type="Script" path="res://scenes/thin_vines.gd" id="1_lh5ur"]
+[ext_resource type="Texture2D" uid="uid://moixskaofmy1" path="res://icon.svg" id="1_xsj4e"]
+[ext_resource type="Script" path="res://scenes/BurnArea.gd" id="3_156gv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c8cbi"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"burn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xsj4e")
+}],
+"loop": true,
+"name": &"burnt",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bikpm"]
+size = Vector2(20, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpo0d"]
+size = Vector2(22, 34)
+
+[node name="ThinVines" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_lh5ur")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.15625, 0.140625)
+sprite_frames = SubResource("SpriteFrames_c8cbi")
+animation = &"burnt"
+offset = Vector2(0, -35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_bikpm")
+
+[node name="BurnArea" type="Area2D" parent="."]
+script = ExtResource("3_156gv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BurnArea"]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_dpo0d")
+
+[connection signal="area_entered" from="BurnArea" to="." method="_on_burn_area_area_entered"]

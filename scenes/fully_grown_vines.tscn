@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://qlv1ioxywcht"]
+
+[ext_resource type="Texture2D" uid="uid://moixskaofmy1" path="res://icon.svg" id="1_mdlyn"]
+[ext_resource type="Script" path="res://scenes/fully_grown_vines.gd" id="1_nux24"]
+[ext_resource type="Script" path="res://scenes/ClimbArea.gd" id="3_3dc5t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xv6qs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mdlyn")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1lsu"]
+size = Vector2(20, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7pm1l"]
+size = Vector2(24, 36.5)
+
+[node name="FullyGrownVines" type="StaticBody2D"]
+script = ExtResource("1_nux24")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.15625, 0.265625)
+sprite_frames = SubResource("SpriteFrames_xv6qs")
+animation = &"idle"
+offset = Vector2(0, -35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_y1lsu")
+
+[node name="ClimbArea" type="Area2D" parent="."]
+position = Vector2(0, -9)
+script = ExtResource("3_3dc5t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbArea"]
+shape = SubResource("RectangleShape2D_7pm1l")
+
+[connection signal="area_entered" from="ClimbArea" to="." method="_on_climb_area_area_entered"]

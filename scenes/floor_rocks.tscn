@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://ltewm61d5jja"]
+
+[ext_resource type="Script" path="res://scenes/fire_mango_bush.gd" id="1_ydoft"]
+[ext_resource type="Texture2D" uid="uid://b0r4ulaputhbw" path="res://assets/sprites/objects/Rocks/Floor Pickable Rock/Floor Rocks.png" id="2_5tqab"]
+[ext_resource type="Script" path="res://scenes/Rock.gd" id="3_rh8gs"]
+[ext_resource type="Texture2D" uid="uid://de7jtkkexq8nf" path="res://assets/sprites/rock.png" id="4_vvscu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hion7"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4omrl"]
+atlas = ExtResource("2_5tqab")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kquja"]
+atlas = ExtResource("2_5tqab")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gruc"]
+atlas = ExtResource("2_5tqab")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ia8v1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4omrl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kquja")
+}],
+"loop": true,
+"name": &"picked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gruc")
+}],
+"loop": true,
+"name": &"pickup",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ami52"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6jjs3"]
+radius = 14.0
+
+[node name="FloorRocks" type="StaticBody2D"]
+y_sort_enabled = true
+collision_layer = 16
+collision_mask = 11
+script = ExtResource("1_ydoft")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hion7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.19209e-07, 1.19209e-07)
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_ia8v1")
+animation = &"idle"
+
+[node name="InPickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InPickupArea"]
+shape = SubResource("CircleShape2D_ami52")
+
+[node name="Item" type="Node2D" parent="."]
+
+[node name="Rock" type="Area2D" parent="Item"]
+script = ExtResource("3_rh8gs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item/Rock"]
+shape = SubResource("CircleShape2D_6jjs3")
+
+[node name="Rock" type="Sprite2D" parent="Item/Rock"]
+visible = false
+scale = Vector2(1.8125, 1.8125)
+texture = ExtResource("4_vvscu")
+
+[connection signal="area_entered" from="InPickupArea" to="." method="_on_in_pickup_area_area_entered"]
+[connection signal="area_exited" from="InPickupArea" to="." method="_on_in_pickup_area_area_exited"]
+[connection signal="area_entered" from="Item/Rock" to="Item/Rock" method="_on_area_entered"]

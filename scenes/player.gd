@@ -73,6 +73,7 @@ func pick_up_closest_item():
 			held_item = item
 			item.position = Vector2()
 			item.is_held = true
+			item.z_index = 1
 			break
 
 func throw_item(direction_throw, force):

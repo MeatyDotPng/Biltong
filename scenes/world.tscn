@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://1mjwi8vj4hxi"]
+[gd_scene load_steps=11 format=3 uid="uid://1mjwi8vj4hxi"]
 
 [ext_resource type="PackedScene" uid="uid://bx45aod1nh562" path="res://scenes/item.tscn" id="2_cop11"]
 [ext_resource type="PackedScene" uid="uid://dto8qfspqle7p" path="res://scenes/player.tscn" id="2_ltaxa"]
 [ext_resource type="Texture2D" uid="uid://b0xksn37x1tf3" path="res://assets/sprites/tileset.png" id="3_r0m34"]
 [ext_resource type="PackedScene" uid="uid://p6mlqowswgkl" path="res://scenes/fire_mango_bush.tscn" id="4_1ggy4"]
+[ext_resource type="PackedScene" uid="uid://umh6mo3ibi56" path="res://scenes/poison_mushroom_log.tscn" id="5_vgf2d"]
+[ext_resource type="PackedScene" uid="uid://bdnewct48koik" path="res://scenes/large_rock.tscn" id="6_naak3"]
+[ext_resource type="PackedScene" uid="uid://ltewm61d5jja" path="res://scenes/floor_rocks.tscn" id="7_oxy73"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_45qub"]
 texture = ExtResource("3_r0m34")
@@ -155,9 +158,14 @@ texture = ExtResource("3_r0m34")
 6:9/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:9/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_b0otg"]
+resource_name = "2"
+scenes/1/scene = ExtResource("4_1ggy4")
+
 [sub_resource type="TileSet" id="TileSet_ixy2d"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_45qub")
+sources/1 = SubResource("TileSetScenesCollectionSource_b0otg")
 
 [node name="World" type="Node2D"]
 
@@ -184,8 +192,20 @@ position = Vector2(264, 150)
 [node name="FireMangoBush" parent="TileMap" instance=ExtResource("4_1ggy4")]
 position = Vector2(433, 222)
 
+[node name="PoisonMushroomLog" parent="TileMap" instance=ExtResource("5_vgf2d")]
+position = Vector2(268, 244)
+
+[node name="LargeRock" parent="TileMap" instance=ExtResource("6_naak3")]
+position = Vector2(356, 163)
+
 [node name="Item" parent="." instance=ExtResource("2_cop11")]
 position = Vector2(174, 159)
 
 [node name="Item2" parent="." instance=ExtResource("2_cop11")]
 position = Vector2(331, 218)
+
+[node name="FloorRocks" parent="." instance=ExtResource("7_oxy73")]
+position = Vector2(187, 210)
+
+[node name="FloorRocks2" parent="." instance=ExtResource("7_oxy73")]
+position = Vector2(364, 255)
