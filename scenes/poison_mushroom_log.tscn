@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://umh6mo3ibi56"]
+[gd_scene load_steps=12 format=3 uid="uid://kvbyle0qbfhw"]
 
 [ext_resource type="Script" path="res://scenes/fire_mango_bush.gd" id="1_8mps1"]
 [ext_resource type="Texture2D" uid="uid://dgh3rsxd3h2su" path="res://assets/sprites/objects/poison mushroom/Trunk.png" id="2_qy4ge"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://p6mlqowswgkl"]
+[gd_scene load_steps=12 format=3 uid="uid://dq2ai85n5ec1"]
 
 [ext_resource type="Texture2D" uid="uid://djsovc3qy6vwa" path="res://assets/sprites/objects/fire mango/Fire_Mango.png" id="1_e5orr"]
 [ext_resource type="Script" path="res://scenes/fire_mango_bush.gd" id="1_xdxj3"]

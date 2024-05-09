@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdnewct48koik"]
+[gd_scene load_steps=12 format=3 uid="uid://dhwi5tld1og6c"]
 
 [ext_resource type="Script" path="res://scenes/fire_mango_bush.gd" id="1_tacli"]
 [ext_resource type="Texture2D" uid="uid://cpeyr1e5rt6ph" path="res://assets/sprites/objects/Rocks/Large Pickable Rock/Large Pickable Rock.png" id="2_va276"]
