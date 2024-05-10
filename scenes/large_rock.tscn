@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dhwi5tld1og6c"]
+[gd_scene load_steps=21 format=3 uid="uid://dhwi5tld1og6c"]
 
 [ext_resource type="Script" path="res://scenes/fire_mango_bush.gd" id="1_tacli"]
 [ext_resource type="Texture2D" uid="uid://cpeyr1e5rt6ph" path="res://assets/sprites/objects/Rocks/Large Pickable Rock/Large Pickable Rock.png" id="2_va276"]
 [ext_resource type="Script" path="res://scenes/Rock.gd" id="3_2m6do"]
-[ext_resource type="Texture2D" uid="uid://de7jtkkexq8nf" path="res://assets/sprites/rock.png" id="4_xnqlb"]
+[ext_resource type="Texture2D" uid="uid://53ugxhnvl8et" path="res://assets/sprites/objects/Rocks/Rock-Throwable-Sheet.png" id="4_mtp0a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vsmeh"]
 radius = 10.1635
@@ -53,6 +53,75 @@ radius = 21.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_wvens"]
 radius = 21.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywu3c"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oy2w"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv0w7"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihd2u"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sy7tl"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_if0sy"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sriuu"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfo35"]
+atlas = ExtResource("4_mtp0a")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vmxbk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywu3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oy2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv0w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihd2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sy7tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_if0sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sriuu")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfo35")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [node name="LargeRock" type="StaticBody2D"]
 z_index = 1
 y_sort_enabled = true
@@ -87,12 +156,14 @@ script = ExtResource("3_2m6do")
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_wvens")
 
-[node name="Rock" type="Sprite2D" parent="Item/Rock"]
+[node name="Rock" type="AnimatedSprite2D" parent="Item/Rock"]
 visible = false
-position = Vector2(0, -5)
-scale = Vector2(2, 2)
-texture = ExtResource("4_xnqlb")
+position = Vector2(0, -6)
+scale = Vector2(1.908, 1.908)
+sprite_frames = SubResource("SpriteFrames_vmxbk")
+animation = &"idle"
 
 [connection signal="area_entered" from="InPickupArea" to="." method="_on_in_pickup_area_area_entered"]
 [connection signal="area_exited" from="InPickupArea" to="." method="_on_in_pickup_area_area_exited"]
 [connection signal="area_entered" from="Item/Rock" to="Item/Rock" method="_on_area_entered"]
+[connection signal="animation_finished" from="Item/Rock/Rock" to="Item/Rock" method="_on_rock_animation_finished"]

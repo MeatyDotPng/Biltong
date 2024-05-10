@@ -39,7 +39,7 @@ script = ExtResource("1_lh5ur")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.15625, 0.140625)
 sprite_frames = SubResource("SpriteFrames_c8cbi")
-animation = &"burnt"
+animation = &"burn"
 offset = Vector2(0, -35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

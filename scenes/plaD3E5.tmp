@@ -2952,7 +2952,6 @@ vframes = 2
 frame = 1
 
 [node name="ThrowDirectionArrow" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(1.90735e-06, -8)
 scale = Vector2(1.55556, 1.55556)
 texture = ExtResource("3_fpv1j")
