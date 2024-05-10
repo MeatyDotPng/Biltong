@@ -119,24 +119,52 @@ func update_animation_parameters():
 	if velocity == Vector2.ZERO:
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/is_moving"] = false
+		
+		if Input.is_action_just_pressed("climb"):
+			animation_tree["parameters/conditions/is_climbing"] = true
+		else:
+			animation_tree["parameters/conditions/is_climbing"] = false
+		
+		if held_item:
+			if Input.is_action_just_released("throw_left"):
+				if not Input.is_action_just_released("throw_right"):
+					animation_tree["parameters/conditions/idle_throw_l"] = true
+			else:
+				animation_tree["parameters/conditions/idle_throw_l"] = false
+			
+			if Input.is_action_just_released("throw_right"):
+				if not Input.is_action_just_released("throw_left"):
+					animation_tree["parameters/conditions/idle_throw_r"] = true
+			else:
+				animation_tree["parameters/conditions/idle_throw_r"] = false
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/is_moving"] = true
-	
-	if held_item:
-		if Input.is_action_just_released("throw_left"):
-			animation_tree["parameters/conditions/throw_left"] = true
+		
+		if Input.is_action_just_pressed("climb"):
+			animation_tree["parameters/conditions/is_climbing"] = true
 		else:
-			animation_tree["parameters/conditions/throw_left"] = false
-	
-		if Input.is_action_just_released("throw_right"):
-			animation_tree["parameters/conditions/throw_right"] = true
-		else:
-			animation_tree["parameters/conditions/throw_right"] = false
+			animation_tree["parameters/conditions/is_climbing"] = false
+		
+		if held_item:
+			if Input.is_action_just_released("throw_left"):
+				if not Input.is_action_just_released("throw_right"):
+					animation_tree["parameters/conditions/is_moving_throw_l"] = true
+			else:
+				animation_tree["parameters/conditions/is_moving_throw_l"] = false
+			
+			if Input.is_action_just_released("throw_right"):
+				if not Input.is_action_just_released("throw_left"):
+					animation_tree["parameters/conditions/is_moving_throw_r"] = true
+			else:
+				animation_tree["parameters/conditions/is_moving_throw_r"] = false
 	
 	# To hold the correct direction
 	if direction != Vector2.ZERO:
 		animation_tree["parameters/Idle/blend_position"] = direction
 		animation_tree["parameters/Run/blend_position"] = direction
-		animation_tree["parameters/Left_Arm_Throw/blend_position"] = direction
-		animation_tree["parameters/Right_Arm_Throw/blend_position"] = direction
+		animation_tree["parameters/Climb/blend_position"] = direction
+		animation_tree["parameters/Idle_Throw_Left/blend_position"] = direction
+		animation_tree["parameters/Idle_Throw_Right/blend_position"] = direction
+		animation_tree["parameters/Run_Throw_Left/blend_position"] = direction
+		animation_tree["parameters/Run_Throw_Right/blend_position"] = direction
