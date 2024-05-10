@@ -37,6 +37,10 @@ func _input(event):
 	if event.is_action_pressed("pickup") and held_item == null:
 		pick_up_closest_item()
 	
+	# Handle drop
+	if event.is_action_pressed("drop") and held_item:
+		drop_item()
+	
 	# Handle drag start
 	if held_item and event is InputEventMouseButton:
 		if event.pressed:
@@ -66,6 +70,13 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and not event.pressed and is_dragging:
 		end_drag_and_throw(event)
 
+func drop_item():
+	if held_item:
+		held_item.is_held = false  # Mark the item as not held
+		held_item.global_position = position  # Drop at the player's position
+		held_item = null  # Clear the held item
+		print("Item dropped")
+
 func pick_up_closest_item():
 	var items = interaction_area.get_overlapping_areas()
 	for item in items:
@@ -81,12 +92,13 @@ func throw_item(direction_throw, force):
 	add_child(timer)
 	timer.one_shot = true
 	timer.autostart = false
-	timer.wait_time = 0.2
+	timer.wait_time = 0.3
 	timer.timeout.connect(_timer_Timeout)
 	timer.start()
 	
 	if held_item:
 		held_item.throw(direction_throw, force)
+		held_item = null
 
 func _timer_Timeout():
 		held_item = null

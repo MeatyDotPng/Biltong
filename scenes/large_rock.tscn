@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://de7jtkkexq8nf" path="res://assets/sprites/rock.png" id="4_xnqlb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vsmeh"]
-radius = 7.11937
+radius = 10.1635
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_24cn6"]
 atlas = ExtResource("2_va276")
@@ -48,10 +48,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hmsq"]
-radius = 11.0
+radius = 21.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wvens"]
-radius = 11.0454
+radius = 21.0
 
 [node name="LargeRock" type="StaticBody2D"]
 z_index = 1
@@ -67,8 +67,7 @@ skew = 0.747001
 shape = SubResource("CircleShape2D_vsmeh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4.76837e-07)
-scale = Vector2(1.5625, 1.5625)
+scale = Vector2(2.03125, 2.03125)
 sprite_frames = SubResource("SpriteFrames_m2uxq")
 animation = &"idle"
 offset = Vector2(0, -4)

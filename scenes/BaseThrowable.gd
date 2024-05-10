@@ -11,16 +11,19 @@ var is_held = false
 var is_rolling = false
 var has_hit_ground = false
 var already_playing = false
+var was_thrown = false
 
 signal picked_up
 signal dropped
+signal thrown
+signal stopped_moving
 
 func _ready():
 	connect("picked_up", Callable(self, "_on_picked_up"))
 	connect("dropped", Callable(self, "_on_dropped"))
 
 func _physics_process(delta):
-	if not is_held:
+	if not is_held and was_thrown:
 		if not is_rolling:
 			# Apply high deceleration initially
 			initial_velocity *= high_deceleration ** delta
@@ -37,16 +40,15 @@ func _physics_process(delta):
 			if not has_hit_ground:
 					play_sound(hit_ground)
 					has_hit_ground = true
-		
-
 		# Stop completely if velocity is very low
 		if initial_velocity.length() < 20:
 			initial_velocity = Vector2.ZERO
-			is_rolling = false  # Reset rolling for next throw
-			has_hit_ground = false  # Ensure sound doesn't play repeatedly
+			is_rolling = false
+			emit_signal("stopped_moving")
 
 func _on_picked_up():
 	is_held = true
+	was_thrown = false
 	initial_velocity = Vector2()  # Reset velocity when picked up
 	is_rolling = false
 	has_hit_ground = false  # Reset ground hit sound trigger
@@ -54,7 +56,8 @@ func _on_picked_up():
 func _on_dropped():
 	is_held = false
 	is_rolling = false
-	has_hit_ground = false  # Ensure the sound can play when appropriate
+	has_hit_ground = false
+	was_thrown = false
 
 func throw(direction, force):
 	if is_held and not already_playing:
@@ -66,6 +69,8 @@ func throw(direction, force):
 		timer.timeout.connect(_timer_Timeout)
 		timer.start()
 		already_playing = true
+		was_thrown = true
+		emit_signal("thrown")
 		
 		initial_velocity = direction * force
 
