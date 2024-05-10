@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df1w6j8yhphyy"
-path="res://.godot/imported/character_idle_throw_left_right.png-d027077b52d5286149e9397de430913d.ctex"
+uid="uid://ieq33hccoaap"
+path="res://.godot/imported/character_idle_throw_right_left.png-ab50c8d84fd91158180a42f9de0b74fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/throw/left/idle/side/right throw left/character_idle_throw_left_right.png"
-dest_files=["res://.godot/imported/character_idle_throw_left_right.png-d027077b52d5286149e9397de430913d.ctex"]
+source_file="res://assets/sprites/character/throw/left/idle/side/right throw left/character_idle_throw_right_left.png"
+dest_files=["res://.godot/imported/character_idle_throw_right_left.png-ab50c8d84fd91158180a42f9de0b74fb.ctex"]
 
 [params]
 
