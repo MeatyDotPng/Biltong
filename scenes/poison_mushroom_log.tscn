@@ -48,10 +48,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7m8u"]
-radius = 11.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tdc8j"]
-radius = 11.0
+radius = 12.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mares"]
 atlas = ExtResource("4_ki1r2")
@@ -122,8 +122,8 @@ skew = 0.747001
 shape = SubResource("CircleShape2D_vsmeh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-4.76837e-07, -9.53674e-07)
-scale = Vector2(1.73193, 1.73193)
+position = Vector2(-1.19209e-07, -2.38419e-07)
+scale = Vector2(1.72706, 1.72706)
 sprite_frames = SubResource("SpriteFrames_687cq")
 animation = &"idle"
 offset = Vector2(1, -4)
@@ -131,7 +131,7 @@ offset = Vector2(1, -4)
 [node name="InPickupArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InPickupArea"]
-position = Vector2(0, -8)
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_h7m8u")
 
 [node name="Item" type="Node2D" parent="."]
@@ -140,7 +140,7 @@ shape = SubResource("CircleShape2D_h7m8u")
 script = ExtResource("3_k7yen")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item/PoisonMushroom"]
-position = Vector2(0, -8)
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_tdc8j")
 
 [node name="Mushroom" type="AnimatedSprite2D" parent="Item/PoisonMushroom"]

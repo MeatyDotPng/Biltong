@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8twbsmks2w6"]
+
+[ext_resource type="Script" path="res://scenes/turtle.gd" id="1_35e75"]
+[ext_resource type="Texture2D" uid="uid://1hvv262dfnuj" path="res://assets/sprites/enemies/Turtle.png" id="1_hya8v"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qmti"]
+radius = 9.0
+height = 44.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fe4p"]
+size = Vector2(80.5, 45.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k48jh"]
+radius = 185.024
+
+[node name="Turtle" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_35e75")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(1.40625, 1.40625)
+texture = ExtResource("1_hya8v")
+offset = Vector2(0, -10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -11)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3qmti")
+
+[node name="EnemiesInteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemiesInteractionArea"]
+position = Vector2(1, -13)
+shape = SubResource("RectangleShape2D_8fe4p")
+
+[node name="LargerDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LargerDetectionArea"]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_k48jh")
+
+[connection signal="area_entered" from="EnemiesInteractionArea" to="." method="_on_enemies_interaction_area_area_entered"]
+[connection signal="area_entered" from="LargerDetectionArea" to="." method="_on_larger_detection_area_area_entered"]
+[connection signal="area_exited" from="LargerDetectionArea" to="." method="_on_larger_detection_area_area_exited"]

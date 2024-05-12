@@ -12,6 +12,7 @@ var is_rolling = false
 var has_hit_ground = false
 var already_playing = false
 var was_thrown = false
+var playing_death_now = false
 
 signal picked_up
 signal dropped
@@ -21,6 +22,7 @@ signal stopped_moving
 func _ready():
 	connect("picked_up", Callable(self, "_on_picked_up"))
 	connect("dropped", Callable(self, "_on_dropped"))
+	connect("playing_death", Callable(self, "_on_playing_death"))
 
 func _physics_process(delta):
 	if not is_held and was_thrown:
@@ -38,20 +40,25 @@ func _physics_process(delta):
 			position += initial_velocity * delta
 			# Play ground hit sound once when starting to roll
 			if not has_hit_ground:
-					play_sound(hit_ground)
-					has_hit_ground = true
+				play_sound(hit_ground)
+				has_hit_ground = true
 		# Stop completely if velocity is very low
 		if initial_velocity.length() < 20:
 			initial_velocity = Vector2.ZERO
 			is_rolling = false
 			emit_signal("stopped_moving")
 
+func _on_playing_death():
+	playing_death_now = true
+	is_held = false
+
 func _on_picked_up():
-	is_held = true
-	was_thrown = false
-	initial_velocity = Vector2()  # Reset velocity when picked up
-	is_rolling = false
-	has_hit_ground = false  # Reset ground hit sound trigger
+	if not playing_death_now:
+		is_held = true
+		was_thrown = false
+		initial_velocity = Vector2()
+		is_rolling = false
+		has_hit_ground = false
 
 func _on_dropped():
 	is_held = false

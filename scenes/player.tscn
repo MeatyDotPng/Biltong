@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://dto8qfspqle7p"]
+[gd_scene load_steps=124 format=3 uid="uid://dto8qfspqle7p"]
 
 [ext_resource type="Texture2D" uid="uid://b26t83822dee" path="res://assets/sprites/character_front_walk.png" id="1_447qw"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_uudb5"]
@@ -2736,6 +2736,8 @@ min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_hbtaq"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q1hl7"]
 animation = &"run_right"
 
@@ -2922,6 +2924,8 @@ states/Idle_Throw_Left/node = SubResource("AnimationNodeBlendSpace2D_p2sa2")
 states/Idle_Throw_Left/position = Vector2(304, -62)
 states/Idle_Throw_Right/node = SubResource("AnimationNodeBlendSpace2D_hbuco")
 states/Idle_Throw_Right/position = Vector2(304, 262)
+states/Pickup/node = SubResource("AnimationNodeBlendSpace2D_hbtaq")
+states/Pickup/position = Vector2(581, -154)
 states/Run/node = SubResource("AnimationNodeBlendSpace2D_jrwsd")
 states/Run/position = Vector2(700, 100)
 states/Run_Throw_Left/node = SubResource("AnimationNodeBlendSpace2D_lmevc")
@@ -2930,7 +2934,7 @@ states/Run_Throw_Right/node = SubResource("AnimationNodeBlendSpace2D_lxtpe")
 states/Run_Throw_Right/position = Vector2(849, 262)
 states/Start/position = Vector2(167, 100)
 transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_11235"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_t2gvi"), "Idle", "Idle_Throw_Right", SubResource("AnimationNodeStateMachineTransition_kh2gt"), "Idle_Throw_Right", "Idle", SubResource("AnimationNodeStateMachineTransition_ie3ix"), "Idle_Throw_Left", "Idle", SubResource("AnimationNodeStateMachineTransition_cmrwm"), "Idle", "Idle_Throw_Left", SubResource("AnimationNodeStateMachineTransition_x8gq8"), "Run", "Run_Throw_Left", SubResource("AnimationNodeStateMachineTransition_kqkxi"), "Run_Throw_Left", "Run", SubResource("AnimationNodeStateMachineTransition_6gvc3"), "Run_Throw_Right", "Run", SubResource("AnimationNodeStateMachineTransition_0hm2k"), "Run", "Run_Throw_Right", SubResource("AnimationNodeStateMachineTransition_ofma5"), "Idle", "Climb", SubResource("AnimationNodeStateMachineTransition_crk1x"), "Climb", "Idle", SubResource("AnimationNodeStateMachineTransition_xb2xi"), "Idle_Throw_Right", "Run", SubResource("AnimationNodeStateMachineTransition_ia2ts"), "Run", "Idle_Throw_Right", SubResource("AnimationNodeStateMachineTransition_dh762"), "Run", "Idle_Throw_Left", SubResource("AnimationNodeStateMachineTransition_mobqq"), "Idle_Throw_Left", "Run", SubResource("AnimationNodeStateMachineTransition_41d8w"), "Idle", "Run_Throw_Left", SubResource("AnimationNodeStateMachineTransition_0txjh"), "Run_Throw_Left", "Idle", SubResource("AnimationNodeStateMachineTransition_2gpfi"), "Run_Throw_Right", "Idle", SubResource("AnimationNodeStateMachineTransition_awtpq"), "Idle", "Run_Throw_Right", SubResource("AnimationNodeStateMachineTransition_lxrt2"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_owy2j"), "Run", "Climb", SubResource("AnimationNodeStateMachineTransition_hv0vd"), "Climb", "Run", SubResource("AnimationNodeStateMachineTransition_1h361")]
-graph_offset = Vector2(-46, -81)
+graph_offset = Vector2(-34, -194)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -2993,6 +2997,7 @@ parameters/Climb/blend_position = Vector2(0.00905347, 0.85261)
 parameters/Idle/blend_position = Vector2(0.000823021, 0.70241)
 parameters/Idle_Throw_Left/blend_position = Vector2(0.00576127, 0.32249)
 parameters/Idle_Throw_Right/blend_position = Vector2(-0.017284, 0.684739)
+parameters/Pickup/blend_position = Vector2(0, 0)
 parameters/Run/blend_position = Vector2(-0.000823021, 0.516868)
 parameters/Run_Throw_Left/blend_position = Vector2(-0.0255144, 0.755422)
 parameters/Run_Throw_Right/blend_position = Vector2(-0.593416, 0.128112)

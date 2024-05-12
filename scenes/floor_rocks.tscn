@@ -124,16 +124,16 @@ animations = [{
 
 [node name="FloorRocks" type="StaticBody2D"]
 z_index = 1
-y_sort_enabled = true
 collision_layer = 16
 collision_mask = 11
 script = ExtResource("1_ydoft")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_hion7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(5.96046e-08, 9.53674e-07)
+position = Vector2(3.55271e-15, 4)
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_ia8v1")
 animation = &"idle"
@@ -141,6 +141,7 @@ animation = &"idle"
 [node name="InPickupArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InPickupArea"]
+position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_ami52")
 
 [node name="Item" type="Node2D" parent="."]
@@ -149,10 +150,13 @@ shape = SubResource("CircleShape2D_ami52")
 script = ExtResource("3_k7udd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item/Rock"]
+position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_6jjs3")
 
 [node name="Rock" type="AnimatedSprite2D" parent="Item/Rock"]
 visible = false
+z_index = 1
+position = Vector2(0, 3)
 scale = Vector2(1.908, 1.908)
 sprite_frames = SubResource("SpriteFrames_674wu")
 animation = &"idle"

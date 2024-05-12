@@ -1,35 +1,74 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctxl0q4w5j5u7"]
+[gd_scene load_steps=13 format=3 uid="uid://ctxl0q4w5j5u7"]
 
 [ext_resource type="Script" path="res://scenes/thin_vines.gd" id="1_lh5ur"]
-[ext_resource type="Texture2D" uid="uid://moixskaofmy1" path="res://icon.svg" id="1_xsj4e"]
+[ext_resource type="Texture2D" uid="uid://cnhofejt3mphb" path="res://assets/sprites/objects/Walls/Vines-Sheet.png" id="2_cjb65"]
 [ext_resource type="Script" path="res://scenes/BurnArea.gd" id="3_156gv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlbjn"]
+atlas = ExtResource("2_cjb65")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvvm8"]
+atlas = ExtResource("2_cjb65")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65oys"]
+atlas = ExtResource("2_cjb65")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfau1"]
+atlas = ExtResource("2_cjb65")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlkhc"]
+atlas = ExtResource("2_cjb65")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axce0"]
+atlas = ExtResource("2_cjb65")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c8cbi"]
 animations = [{
-"frames": [],
-"loop": true,
-"name": &"burn",
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlbjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvvm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65oys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfau1")
+}],
+"loop": false,
+"name": &"burning",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_xsj4e")
+"texture": SubResource("AtlasTexture_qlkhc")
 }],
 "loop": true,
 "name": &"burnt",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axce0")
+}],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bikpm"]
-size = Vector2(20, 32)
+size = Vector2(40, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dpo0d"]
-size = Vector2(22, 34)
+size = Vector2(48, 43)
 
 [node name="ThinVines" type="StaticBody2D"]
 collision_layer = 4
@@ -37,20 +76,22 @@ collision_mask = 15
 script = ExtResource("1_lh5ur")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.15625, 0.140625)
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(1.22266, 1.10039)
 sprite_frames = SubResource("SpriteFrames_c8cbi")
-animation = &"burn"
-offset = Vector2(0, -35)
+animation = &"idle"
+offset = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -11)
+position = Vector2(0, -16.5)
 shape = SubResource("RectangleShape2D_bikpm")
 
 [node name="BurnArea" type="Area2D" parent="."]
 script = ExtResource("3_156gv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BurnArea"]
-position = Vector2(0, -11)
+position = Vector2(0, -16.5)
 shape = SubResource("RectangleShape2D_dpo0d")
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="BurnArea" to="." method="_on_burn_area_area_entered"]

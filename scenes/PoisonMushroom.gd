@@ -4,6 +4,8 @@ extends BaseThrowable
 
 var death = false
 
+signal playing_death
+
 func _ready():
 	mushroom.visible = false
 	connect("stopped_moving", Callable(self, "_on_stopped_moving"))
@@ -19,6 +21,7 @@ func _on_stopped_moving():
 	# Play death animation if conditions are met
 	if was_thrown:
 		# play death sound and animation
+		emit_signal("playing_death")
 		mushroom.play("death")
 		death = true
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://1mjwi8vj4hxi"]
+[gd_scene load_steps=22 format=3 uid="uid://1mjwi8vj4hxi"]
 
 [ext_resource type="PackedScene" uid="uid://dto8qfspqle7p" path="res://scenes/player.tscn" id="2_ltaxa"]
 [ext_resource type="Texture2D" uid="uid://b0xksn37x1tf3" path="res://assets/sprites/tileset.png" id="3_r0m34"]
@@ -7,8 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://dkxbeny78klgo" path="res://assets/sprites/world/floor/tileset.png" id="4_lrya7"]
 [ext_resource type="Texture2D" uid="uid://bevxwhfhkm2ww" path="res://assets/sprites/world/decorations/tileset_decorations_test.png" id="5_bcyr4"]
 [ext_resource type="PackedScene" uid="uid://kvbyle0qbfhw" path="res://scenes/poison_mushroom_log.tscn" id="5_vgf2d"]
+[ext_resource type="Texture2D" uid="uid://deyuftp7cf575" path="res://assets/sprites/objects/Walls/Structures-Sheet.png" id="6_bga25"]
 [ext_resource type="PackedScene" uid="uid://dhwi5tld1og6c" path="res://scenes/large_rock.tscn" id="6_naak3"]
 [ext_resource type="PackedScene" uid="uid://cwnhmodx6f67r" path="res://scenes/floor_rocks.tscn" id="7_oxy73"]
+[ext_resource type="PackedScene" uid="uid://b8twbsmks2w6" path="res://scenes/turtle.tscn" id="10_m63xu"]
+[ext_resource type="PackedScene" uid="uid://ctxl0q4w5j5u7" path="res://scenes/thin_vines.tscn" id="11_v8jcm"]
+[ext_resource type="PackedScene" uid="uid://dhf2wqx1efar8" path="res://scenes/left.tscn" id="13_0fqbo"]
+[ext_resource type="PackedScene" uid="uid://hphsli7y6q04" path="res://scenes/right.tscn" id="14_ubva5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_45qub"]
 texture = ExtResource("3_r0m34")
@@ -322,6 +327,29 @@ texture = ExtResource("5_bcyr4")
 5:0/0/physics_layer_0/angular_velocity = 0.0
 5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9.875, 4.5, -8, 2.375, -2.75, 1, 2.625, 1, 8, 2.25, 10, 4.375, 9.125, 8, 6.875, 9.875, -3.375, 10, -8, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gjgxr"]
+texture = ExtResource("6_bga25")
+1:0/size_in_atlas = Vector2i(2, 1)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/size_in_atlas = Vector2i(2, 1)
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+6:0/0 = 0
+6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+6:0/0/physics_layer_0/angular_velocity = 0.0
+7:0/0 = 0
+7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:0/0/physics_layer_0/angular_velocity = 0.0
+8:0/0 = 0
+8:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:0/0/physics_layer_0/angular_velocity = 0.0
+
 [sub_resource type="TileSet" id="TileSet_ixy2d"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_45qub")
@@ -329,6 +357,7 @@ sources/1 = SubResource("TileSetScenesCollectionSource_b0otg")
 sources/2 = SubResource("TileSetAtlasSource_jtfqk")
 sources/3 = SubResource("TileSetAtlasSource_tdf78")
 sources/4 = SubResource("TileSetAtlasSource_7t41a")
+sources/5 = SubResource("TileSetAtlasSource_gjgxr")
 
 [node name="World" type="Node2D"]
 
@@ -351,9 +380,6 @@ layer_3/tile_data = PackedInt32Array(1376263, 327684, 0, 393238, 327684, 0, 1048
 
 [node name="Player" parent="TileMap" instance=ExtResource("2_ltaxa")]
 position = Vector2(264, 150)
-speed = 75
-last_input_y = 0
-throw_force = 400
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="TileMap/Player"]
 remote_path = NodePath("../../../Camera2D")
@@ -362,16 +388,22 @@ remote_path = NodePath("../../../Camera2D")
 position = Vector2(433, 222)
 
 [node name="PoisonMushroomLog" parent="TileMap" instance=ExtResource("5_vgf2d")]
-position = Vector2(268, 244)
+position = Vector2(230, 207)
+
+[node name="PoisonMushroomLog2" parent="TileMap" instance=ExtResource("5_vgf2d")]
+position = Vector2(182, 428)
+
+[node name="PoisonMushroomLog3" parent="TileMap" instance=ExtResource("5_vgf2d")]
+position = Vector2(721, 260)
 
 [node name="LargeRock" parent="TileMap" instance=ExtResource("6_naak3")]
-position = Vector2(356, 163)
+position = Vector2(508, 143)
 
-[node name="FloorRocks" parent="." instance=ExtResource("7_oxy73")]
-position = Vector2(132, 235)
+[node name="FloorRocks" parent="TileMap" instance=ExtResource("7_oxy73")]
+position = Vector2(96, 262)
 
-[node name="FloorRocks2" parent="." instance=ExtResource("7_oxy73")]
-position = Vector2(364, 255)
+[node name="FloorRocks2" parent="TileMap" instance=ExtResource("7_oxy73")]
+position = Vector2(314, 475)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(264, 150)
@@ -379,3 +411,35 @@ zoom = Vector2(1.5, 1.5)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_drag_margin = true
+
+[node name="Turtle" parent="." instance=ExtResource("10_m63xu")]
+position = Vector2(605, 446)
+
+[node name="MapBoarder" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapBoarder"]
+polygon = PackedVector2Array(42, 38, 1108, 37, 1111, 611, 42, 612, 39, 42, -33, -38, -98, 320, -47, 721, 674, 817, 1251, 642, 1276, 189, 1076, -136, 680, -159, 298, -122, 52, -71, -25, -37, 34, 33)
+
+[node name="LargeRock" parent="." instance=ExtResource("6_naak3")]
+position = Vector2(999, 375)
+
+[node name="FloorRocks" parent="." instance=ExtResource("7_oxy73")]
+position = Vector2(902, 114)
+
+[node name="FloorRocks2" parent="." instance=ExtResource("7_oxy73")]
+position = Vector2(834, 560)
+
+[node name="FireMangoBush" parent="." instance=ExtResource("4_1ggy4")]
+position = Vector2(829, 322)
+
+[node name="FireMangoBush2" parent="." instance=ExtResource("4_1ggy4")]
+position = Vector2(294, 370)
+
+[node name="ThinVines" parent="." instance=ExtResource("11_v8jcm")]
+position = Vector2(765, 218)
+
+[node name="left" parent="." instance=ExtResource("13_0fqbo")]
+position = Vector2(716, 219)
+
+[node name="right" parent="." instance=ExtResource("14_ubva5")]
+position = Vector2(816, 219)
